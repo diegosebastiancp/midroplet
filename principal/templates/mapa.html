@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Ubicaciones registradas</h2>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+    // Centro inicial (Santiago)
+    var map = L.map('map', {
+        zoomSnap: 0.5,
+        zoomDelta: 0.5
+    }
+    ).setView([-33.4489, -70.6693], 10);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    {% for u in ubicaciones %}
+
+        L.marker([
+            {{ u.latitud }},
+            {{ u.longitud }}
+        ]).addTo(map)
+        .bindPopup(
+            'ID: {{ u.id_ubi }}<br>' +
+            'Lat: {{ u.latitud }}<br>' +
+            'Lon: {{ u.longitud }}'
+        );
+
+    {% endfor %}
+
+</script>
+
+</body>
+</html>
