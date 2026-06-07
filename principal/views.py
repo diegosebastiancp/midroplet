@@ -4,4 +4,4 @@ from django.http import HttpResponse
 def inicio(request):
 
 
-    return HttpResponse("Valentina y Diego")
+    return HttpResponse("Prueba 1")
