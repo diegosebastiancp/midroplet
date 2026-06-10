@@ -8,28 +8,23 @@ import json
 def inicio(request):
     return HttpResponse("Prueba 1")
 
-def crear_ubicacion(request):
+def mapa(request):
 
     if request.method == 'POST':
         form = UbicacionForm(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect('crear_ubicacion')
+            return redirect('mapa')
 
     else:
         form = UbicacionForm()
 
-    return render(request, 'ubicacion_form.html', {
-        'form': form
-    })
-
-def mapa(request):
-
     ubicaciones = ubicacion.objects.all()
 
     return render(request, 'mapa.html', {
-        'ubicaciones': ubicaciones
+        'ubicaciones': ubicaciones,
+        'form': form
     })
 
 # APIs ===========================================================
